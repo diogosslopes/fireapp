@@ -5,25 +5,18 @@ import { signOut } from "firebase/auth"
 import { auth, db } from '../firebaseConnection'
 import { addDoc, collection, query, onSnapshot, orderBy, where, deleteDoc, doc, updateDoc} from 'firebase/firestore'
 import { async } from '@firebase/util'
-import { useForm } from 'react-hook-form'
 
 
 export default function Admin() {
 
-    const [task, setTask] = useState({})
+    const [task, setTask] = useState()
     const [userLoged, setuserLoged] = useState()
     const [tasks, setTasks] = useState([])
     const [edit, setEdit] = useState({})
 
-    const { register, handleSubmit, formState:{errors}} = useForm()
 
-    const tarefa = (value) => {
-        saveTask(value)
-    }
 
-            
     useEffect(() => {
-
         async function loadTasks(){
             const userDetail = localStorage.getItem("userLoged")
             setuserLoged(JSON.parse(userDetail))
@@ -43,6 +36,7 @@ export default function Admin() {
                         })
                     })
 
+                    console.log(list)
                     setTasks(list)
 
                 })
@@ -51,12 +45,38 @@ export default function Admin() {
         }
         loadTasks()
     }, [])
+    // async function loadTasks() {
+    //     const userDetail = localStorage.getItem("userLoged")
+    //     setuserLoged(JSON.parse(userDetail))
+
+    //     if (userDetail) {
+    //         const data = JSON.parse(userDetail)
+
+    //         const tasksRef = collection(db, "tasks")
+    //         const q = query(tasksRef, orderBy("created", "desc"), where("userUid", "==", data?.uid))
+    //         const unsub = onSnapshot(q, (snapshot) => {
+    //             let list = []
+
+    //             snapshot.forEach((doc) => {
+    //                 list.push({
+    //                     id: doc.id,
+    //                     userUid: doc.data().created,
+    //                     task: doc.data().task,
+    //                     created: doc.data().created
+    //                 })
+    //             })
+    //             console.log(list)
+    //             setTasks(list)
+    //         })
+    //     }
+    // }
+
+    console.log(userLoged)
 
 
+    async function saveTask(e) {
+        e.preventDefault()
 
-    async function saveTask(task) {
-
-        console.log(task)
         if (task === '') {
             alert('Digite uma tarefa !')
             return
@@ -67,15 +87,14 @@ export default function Admin() {
             return
         }
 
-        console.log(task.task)
-
         await addDoc(collection(db, "tasks"), {
-            task: task.task,
+            task: task,
             created: new Date(),
             userUid: userLoged.uid
         })
             .then(() => {
                 alert('Tarefa Adicionada !')
+                setTask('')
             })
             .catch((error) => {
                 alert('Erro ao adicionar tarefa ' + error)
@@ -114,15 +133,13 @@ export default function Admin() {
         })
     }
 
-   
-
     return (
         <div className='container-admin'>
             <h1>Lista de tarefas</h1>
-            <form className='form' onSubmit={handleSubmit(tarefa)} >
-                <textarea name='task' {...register("task")} ></textarea>
+            <form className='form' onSubmit={saveTask}>
+                <textarea placeholder='Digite sua tarefa' value={task} onChange={((e) => { setTask(e.target.value) })}></textarea>
 
-                <button type="submit" >Registrar tarefa</button>
+                <button type="submit">Registrar tarefa</button>
             </form>
             {tasks.map((item) => (
                 <article key={item.id}>
