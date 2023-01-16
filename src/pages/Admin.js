@@ -50,11 +50,8 @@ export default function Admin() {
                             userUid: doc.data().userUid
                         })
                     })
-
                     setTasks(list)
-
                 })
-
             }
         }
         loadTasks()
@@ -76,11 +73,12 @@ export default function Admin() {
         })
             .then(() => {
                 alert('Tarefa Adicionada !')
+                setEditingTask('')
             })
             .catch((error) => {
                 alert('Erro ao adicionar tarefa ' + error)
             })
-
+            
     }
 
     async function logout() {
@@ -95,7 +93,6 @@ export default function Admin() {
     async function editTask(item){
         setEditingTask(item.task)
         setEdit(item)
-        console.log(edit)
     }
 
     async function updateTask(task){
@@ -107,7 +104,7 @@ export default function Admin() {
         })
         .then(()=>{
             alert("Tarefa Atualizada")
-            setTask('')
+            setEditingTask('')
             setEdit('')
         })
         .catch((error)=>{
