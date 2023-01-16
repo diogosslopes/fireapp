@@ -22,17 +22,18 @@ export default function Register() {
     const handleRegister = (value) => {
         registerUser(value)
     }
-
+    
     const { register, handleSubmit, formState:{errors}} = useForm({
         resolver: yupResolver(validationRegister)
     })
-
-    async function registerUser(e) {
-        e.preventDefault()
-        if (email !== '' && password !== '') {
+    
+    async function registerUser(value) {
+        
+        console.log(value.email)
+        if (value.email !== '' && value.password !== '') {
             await createUserWithEmailAndPassword(auth, email, password)
                 .then(() => {
-                    navigate('/admin', email, password)
+                    navigate('/')
                 })
                 .catch((error) => {
                     toast.error("Preecha todos os campos para se cadastrar.")

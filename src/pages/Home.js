@@ -49,7 +49,7 @@ export default function Home() {
             <form className='form' onSubmit={handleSubmit(handleLogin)}>
                 <input type="text" placeholder='Digite seu E-mail' name='email' {...register("email")}></input>
                 <p className='error'>{errors.email?.message}</p>
-                <input type="text" placeholder='Digite sua senha' name='password' {...register("password")}></input>
+                <input type="password" placeholder='Digite sua senha' name='password' {...register("password")}></input>
                 <p className='error'>{errors.password?.message}</p>
 
                 <button type="submit">Logar</button>

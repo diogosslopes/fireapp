@@ -2,7 +2,7 @@ import {Route, Routes, Link} from 'react-router-dom'
 import Home from '../pages/Home'
 import Register from '../pages/Register'
 import Admin from '../pages/Admin'
-import Private from './Privete'
+import Private from './Private'
 
 function RoutesApp(){
     return(
