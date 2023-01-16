@@ -6,6 +6,8 @@ import { auth, db } from '../firebaseConnection'
 import { addDoc, collection, query, onSnapshot, orderBy, where, deleteDoc, doc, updateDoc} from 'firebase/firestore'
 import { async } from '@firebase/util'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
 
 
 export default function Admin() {
@@ -14,8 +16,13 @@ export default function Admin() {
     const [userLoged, setuserLoged] = useState()
     const [tasks, setTasks] = useState([])
     const [edit, setEdit] = useState({})
+    const validationTask = yup.object().shape({
+        task: yup.string().required("A descrição da tarefa é obrigatória").min(10, "Digite pelo menos 10 caracteres")
+    })
 
-    const { register, handleSubmit, formState:{errors}} = useForm()
+    const { register, handleSubmit, formState:{errors}} = useForm({
+        resolver: yupResolver(validationTask)
+    })
 
     const tarefa = (value) => {
         saveTask(value)
@@ -56,18 +63,16 @@ export default function Admin() {
 
     async function saveTask(task) {
 
-        console.log(task)
-        if (task === '') {
-            alert('Digite uma tarefa !')
-            return
-        }
+        // console.log(task)
+        // if (task === '') {
+        //     alert('Digite uma tarefa !')
+        //     return
+        // }
 
         if(edit?.id){
             updateTask()
             return
         }
-
-        console.log(task.task)
 
         await addDoc(collection(db, "tasks"), {
             task: task.task,
@@ -121,6 +126,7 @@ export default function Admin() {
             <h1>Lista de tarefas</h1>
             <form className='form' onSubmit={handleSubmit(tarefa)} >
                 <textarea name='task' {...register("task")} ></textarea>
+                <p className='error' >{errors.task?.message}</p>
 
                 <button type="submit" >Registrar tarefa</button>
             </form>

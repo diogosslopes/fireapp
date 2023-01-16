@@ -77,10 +77,10 @@ export default function Admin() {
     async function saveTask(e) {
         e.preventDefault()
 
-        if (task === '') {
-            alert('Digite uma tarefa !')
-            return
-        }
+        // if (task === '') {
+        //     alert('Digite uma tarefa !')
+        //     return
+        // }
 
         if(edit?.id){
             updateTask()
