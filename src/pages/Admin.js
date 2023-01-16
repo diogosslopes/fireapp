@@ -12,7 +12,8 @@ import * as yup from "yup"
 
 export default function Admin() {
 
-    const [task, setTask] = useState({})
+    const [task, setTask] = useState()
+    const [editingTask, setEditingTask] = useState()
     const [userLoged, setuserLoged] = useState()
     const [tasks, setTasks] = useState([])
     const [edit, setEdit] = useState({})
@@ -63,14 +64,8 @@ export default function Admin() {
 
     async function saveTask(task) {
 
-        // console.log(task)
-        // if (task === '') {
-        //     alert('Digite uma tarefa !')
-        //     return
-        // }
-
         if(edit?.id){
-            updateTask()
+            updateTask(task)
             return
         }
 
@@ -98,15 +93,16 @@ export default function Admin() {
     }
 
     async function editTask(item){
-        setTask(item.task)
+        setEditingTask(item.task)
         setEdit(item)
         console.log(edit)
     }
 
-    async function updateTask(){
+    async function updateTask(task){
         const docRef = doc(db, "tasks", edit?.id)
+        console.log(task.task)
         await updateDoc(docRef, {
-            task: task,
+            task: task.task,
             lastUpdate: new Date()
         })
         .then(()=>{
@@ -125,7 +121,7 @@ export default function Admin() {
         <div className='container-admin'>
             <h1>Lista de tarefas</h1>
             <form className='form' onSubmit={handleSubmit(tarefa)} >
-                <textarea name='task' {...register("task")} ></textarea>
+                <textarea name='task' {...register("task")} value={editingTask} onChange={((e) => {setEditingTask(e.target.value)})} ></textarea>
                 <p className='error' >{errors.task?.message}</p>
 
                 <button type="submit" >Registrar tarefa</button>
