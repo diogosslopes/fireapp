@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
+import { toast } from 'react-toastify'
 
 export default function Home() {
 
@@ -33,7 +34,7 @@ export default function Home() {
                 navigate('/admin', { replace: true })
             })
             .catch((error)=>{
-                alert('Email ou senha incorretos')
+                toast.error("Email ou senha incorretos")
             })
         } else {
             alert("Preencha todos os campos")

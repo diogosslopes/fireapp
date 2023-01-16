@@ -8,6 +8,7 @@ import { async } from '@firebase/util'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
+import { toast } from 'react-toastify'
 
 
 export default function Admin() {
@@ -72,11 +73,11 @@ export default function Admin() {
             userUid: userLoged.uid
         })
             .then(() => {
-                alert('Tarefa Adicionada !')
+                toast.success('Tarefa Adicionada !')
                 setEditingTask('')
             })
             .catch((error) => {
-                alert('Erro ao adicionar tarefa ' + error)
+                toast.warning('Erro ao adicionar tarefa ' + error)
             })
             
     }
@@ -103,12 +104,12 @@ export default function Admin() {
             lastUpdate: new Date()
         })
         .then(()=>{
-            alert("Tarefa Atualizada")
+            toast.success('Tarefa atualizada !')
             setEditingTask('')
             setEdit('')
         })
         .catch((error)=>{
-            alert("Erro ao editar tarefa. " + error)
+            toast.error("Erro ao editar tarefa.")
         })
     }
 

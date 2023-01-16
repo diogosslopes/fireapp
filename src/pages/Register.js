@@ -7,6 +7,7 @@ import { async } from '@firebase/util'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
+import { toast } from 'react-toastify'
 
 export default function Register() {
 
@@ -34,7 +35,7 @@ export default function Register() {
                     navigate('/admin', email, password)
                 })
                 .catch((error) => {
-                    alert(`Preecha todos os campos para se cadastrar.`)
+                    toast.error("Preecha todos os campos para se cadastrar.")
                     console.log(error)
                 })
         } else {
