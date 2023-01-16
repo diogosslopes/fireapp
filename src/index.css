@@ -108,3 +108,8 @@ text-decoration: none;
 margin: 14px 0;
 font-size: 14px;
 }
+
+.error{
+  color: red;
+  font-size: 15px;
+}
