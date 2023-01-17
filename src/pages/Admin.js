@@ -76,6 +76,7 @@ export default function Admin() {
             .then(() => {
                 toast.success('Tarefa Adicionada !')
                 setEditingTask('')
+                task.task = ''
             })
             .catch((error) => {
                 toast.warning('Erro ao adicionar tarefa ' + error)
@@ -110,6 +111,7 @@ export default function Admin() {
             toast.success('Tarefa atualizada !')
             setEditingTask('')
             setEdit('')
+            task.task = ''
             registerBtn.innerHTML = 'Registrar Tarefa'
         })
         .catch((error)=>{
