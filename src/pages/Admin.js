@@ -18,6 +18,7 @@ export default function Admin() {
     const [userLoged, setuserLoged] = useState()
     const [tasks, setTasks] = useState([])
     const [edit, setEdit] = useState({})
+    const registerBtn = document.querySelector('#registerBtn')
     const validationTask = yup.object().shape({
         task: yup.string().required("A descrição da tarefa é obrigatória").min(10, "Digite pelo menos 10 caracteres")
     })
@@ -92,6 +93,8 @@ export default function Admin() {
     }
 
     async function editTask(item){
+        
+        registerBtn.innerHTML = 'Concluir edição'
         setEditingTask(item.task)
         setEdit(item)
     }
@@ -107,6 +110,7 @@ export default function Admin() {
             toast.success('Tarefa atualizada !')
             setEditingTask('')
             setEdit('')
+            registerBtn.innerHTML = 'Registrar Tarefa'
         })
         .catch((error)=>{
             toast.error("Erro ao editar tarefa.")
@@ -122,7 +126,7 @@ export default function Admin() {
                 <textarea name='task' {...register("task")} value={editingTask} onChange={((e) => {setEditingTask(e.target.value)})} ></textarea>
                 <p className='error' >{errors.task?.message}</p>
 
-                <button type="submit" >Registrar tarefa</button>
+                <button type="submit" id='registerBtn' >Registrar tarefa</button>
             </form>
             {tasks.map((item) => (
                 <article key={item.id}>
