@@ -78,7 +78,7 @@ button:hover{
 
 .form input{
   border: 0;
-  margin-bottom: 12px;
+  margin-bottom: 2px;
   height: 36px;
   border-radius: 5px;
   padding: 0 8px;
@@ -112,4 +112,21 @@ font-size: 14px;
 .error{
   color: red;
   font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.container-showPassword{
+  display: flex;
+  justify-content: space-between;
+  margin: 3px 0 7px;
+}
+
+.showPassword{
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.showPassword:hover{
+  transition: all ease-in-out .3s;
+  opacity: .5;
 }
