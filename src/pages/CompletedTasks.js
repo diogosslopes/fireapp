@@ -174,7 +174,7 @@ export default function CompletedTasks() {
             {tasks.map((item) => (
                 <article key={item.id}>
                     <p>{item.task}</p>
-                    <span>Data da criação. {item.lastUpdate}</span>
+                    <span>Data da criação. {item.created}</span>
                     <span>Data da conclução. {item.lastUpdate}</span>
                     {/* <div>
                         <button onClick={() => editTask(item)}>Editar</button>
