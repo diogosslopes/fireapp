@@ -46,7 +46,12 @@ button:hover{
 }
 
 .container-admin p{
-  margin-bottom: 10px;
+  font-size: 22px;
+  margin-bottom: 2px;
+}
+
+.container-admin span{
+  margin-bottom: 15px;
 }
 
 .container-admin button{
@@ -107,6 +112,10 @@ color: white;
 text-decoration: none;
 margin: 14px 0;
 font-size: 14px;
+}
+
+article span{
+  font-size: 12px;
 }
 
 .error{
